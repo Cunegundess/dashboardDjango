@@ -13,44 +13,34 @@
         <div class="card-body">
           <ul class="list-group list-group-flush">
             
+            {% for empresa in empresas %}
             <li class="list-group-item d-inline-flex align-items-center gap-5">
               <p class="flex-grow-1 mb-0">
-                LATAM Airline Brasil
+                {{empresa.name}}
               </p>
-              <span class="badge rounded-pill text-bg-success">Ativo</span>
-              <button class="btn btn-outline-primary" type="submit">
-                <i class="bi bi-pencil-square"></i>
-                Editar
-            </button>
+              <span class="badge rounded-pill text-bg-success">{{empresa.active}}</span>
+              <a href = "/empresa/{{empresa.id}}">
+                <button class="btn btn-outline-primary" type="submit">
+                  <i class="bi bi-pencil-square"></i>
+                  Editar
+                </button>
+              </a>
             </li>
-            
-            <li class="list-group-item d-inline-flex align-items-center gap-5">
-              <p class="flex-grow-1 mb-0">
-                Coca Cola Indústrias LTDA.
-              </p>
-              <span class="badge rounded-pill text-bg-success">Ativo</span>
-              <button class="btn btn-outline-primary" type="submit">
-                <i class="bi bi-pencil-square"></i>
-                Editar
-              </button>
-            </li>
-            
-            <li class="list-group-item d-inline-flex align-items-center gap-5">
-              <p class="flex-grow-1 mb-0">
-                ACME Inc.
-              </p>
-              <span class="badge rounded-pill text-bg-dark">Inativo</span>
-              <button class="btn btn-outline-primary" type="submit">
-                <i class="bi bi-pencil-square"></i> 
-                Editar
-              </button>
-            </li>
+            {% endfor %}
           
           </ul>
         </div>
       </div>
 
-  
-
+      <nav aria-label="Page navigation example" class="fixed-bottom mb-3 rounded-1">
+        <ul class="pagination d-flex justify-content-center align-items-center">
+            <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
+            <li class="page-item"><a class="page-link active" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Próxima</a></li>
+        </ul>
+    </nav>
+      
 </main>
 {% endblock %}
