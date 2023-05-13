@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="container">
-    <form method="POST" id="formNovaEmpresa">
+    <form method="POST" id="formNovaEmpresa" onsubmit="submitForm(); return false;">
     {% csrf_token %}
         <div class="card mt-5 shadow rounded-1 w-100 d-flex flex-row mw-100">
             <div class="card-body d-flex flex-column gap-4">
@@ -37,4 +37,32 @@
     </form>
     
 </div>
+{% block scripts %}
+<script>
+function submitForm() {
+    var form = $("#formNovaEmpresa")[0];
+    var formData = new FormData(form);
+    formData.append("csrfmiddlewaretoken", "{% csrf_token %}");
+    $.ajax({
+        url: "{% url 'novaEmpresa' %}",
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        beforeSend: function(xhr, settings) {
+            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+        },
+        success: function(response) {
+            console.log(response);
+        },
+        error: function(xhr, status, error) {
+            console.log(xhr.responseText);
+            // handle error
+        }
+    });
+}
+
+</script>
+{% endblock %}
+
 {% endblock %}

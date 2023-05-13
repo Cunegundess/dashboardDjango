@@ -14,18 +14,15 @@ def viewEmpresa(request, id):
 
 def editEmpresa(request, id):
     empresa = get_object_or_404(Empresas, pk=id)
-    print(empresa)
+    form = EmpresaForm(request.POST, instance=empresa)
     if request.method == "POST":
-        form = EmpresaForm(request.POST, instance=empresa)
         if form.is_valid():
-            empresa = form.save(commit=False)
-            empresa.save()
+            form.save()
             return redirect('/')
-        else:
-            return render(request, 'dashboard/editarempresa.html', {'form': form})
     else:
         form = EmpresaForm(instance=empresa)
-        return render(request, 'dashboard/editarempresa.html', {'form': form, 'empresa': empresa})   
+    return render(request, 'dashboard/editarempresa.html', {'form': form, 'empresa': empresa})
+
 
 def novaEmpresa(request):
     if request.method == "POST":
