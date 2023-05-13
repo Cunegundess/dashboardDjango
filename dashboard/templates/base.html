@@ -11,52 +11,56 @@
 </head>
 <body>
 
-    <div class="container">
+    <div class="container-fluid p-0">
 
         <header>
-            <nav class="navbar navbar-expand-lg bg-success p-2">
-                <div class="container-fluid grid gap-4">
-                  <a class="navbar-brand text-white fs-1" href="#">ACME</a>
+            <nav class="navbar navbar-expand-lg bg-success mb-4 me-2">
+                <div class="container-fluid">
+                  <a class="navbar-brand text-white fs-1 fw-semibold ms-5" href="#">ACME</a>
                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                   </button>
-                  <div class="collapse navbar-collapse fw-light p-2 g-col-6" id="navbarNavDropdown">
-                    <ul class="navbar-nav">
+                  <div class="collapse navbar-collapse fw-light p-2 " id="navbarNavDropdown">
+                    <ul class="navbar-nav me-auto">
                       <li class="nav-item">
                         <a class="nav-link active text-white" aria-current="page" href="#">Dashboard</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link text-white" href="#">Clientes</a>
                       </li>
-                      
-                      <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          Fulano da Silva
-                        </a>
-                        <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="#">Action</a></li>
-                          <li><a class="dropdown-item" href="#">Another action</a></li>
-                          <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                      </li>
                     </ul>
+                      <ul class="navbar-nav ms-auto me-4">
+                        <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Fulano da Silva
+                          </a>
+                          <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                          </ul>
+                        </li>
+                      </ul>
                   </div>
                 </div>
               </nav>
+    
         </header>
-
+      
         {% block content %}
         {% endblock %}
 
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
+
+        <nav aria-label="Page navigation example" class="fixed-bottom mb-3 rounded-1">
+            <ul class="pagination d-flex justify-content-center align-items-center">
                 <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link active" href="#">1</a></li>
                 <li class="page-item"><a class="page-link" href="#">2</a></li>
                 <li class="page-item"><a class="page-link" href="#">3</a></li>
                 <li class="page-item"><a class="page-link" href="#">Próxima</a></li>
             </ul>
         </nav>
+
         
     </div>
 
