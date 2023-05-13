@@ -3,7 +3,6 @@
 {% block content %}
 <form method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
 <div class="d-flex flex-row">
     <div class="container d-flex flex-column text-wrap w-25 m-0 ms-5 mt-5 me-5">
         <div class="mb-5">
@@ -29,7 +28,7 @@
             <div class="card-body d-flex flex-row gap-4">
                 <div class="mb-3 w-100 flex-grow-1">
                     <label for="formGroupExampleInput" class="form-label">Empresa</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput id_name" placeholder="{{empresa.name}}">
+                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="{{empresa.name}}">
                 </div>
                 <div class="mb-3 w-25">
                     <label for="inputState" class="form-label">Ativo</label>
@@ -43,7 +42,7 @@
     
         <div class="card mb-3 shadow ms-auto rounded-1 w-100">
             <div class="card-header d-flex justify-content-end"> 
-                <button class="btn btn-primary rounded-1 me-3" type="submit">
+                <button class="btn btn-primary rounded-1 me-3" type="button" data-bs-toggle="modal" data-bs-target="#adicionandoCNPJ">
                     <i class="bi bi-plus"></i>
                     Novo
                 </button>
@@ -55,16 +54,56 @@
                         {{empresa.Cnpj}}
                     </p>
                     <p class="flex-grow-1 mb-0">
-                        {{empresa.name}}
+                        {{empresa.city}}
                     </p>
-                    <span class="badge rounded-pill text-bg-success">{{empresa.active}}</span>
-
-                    <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    {% if empresa.active == 'Ativo' %}
+                    <span class="badge rounded-pill bg-success">{{empresa.active}}</span>
+                    {% else %}
+                    <span class="badge rounded-pill bg-dark">{{empresa.active}}</span>
+                    {% endif %}
+                    <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#editandoCNPJ">
                     <i class="bi bi-pencil-square"></i>
                     Editar
                     </button>
 
-                    <div class="modal" tabindex="-1" id="exampleModal">
+                    <div class="modal" tabindex="-1" id="adicionandoCNPJ">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Adicionando CNPJ</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    
+                                    <form method="POST" action="{% url 'editEmpresa' empresa.id|default:'' as the_url %}">{{ the_url }}</form>
+                                    
+                                        {% csrf_token %}
+                                        <div class="mb-3 w-25">
+                                            <label for="inputState" class="form-label">Ativo</label>
+                                            <select id="inputState" class="form-select" name="ativo">
+                                                <option value="True" {% if empresa.ativo %}selected{% endif %}>Sim</option>
+                                                <option value="False" {% if not empresa.ativo %}selected{% endif %}>Não</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3 w-100 flex-grow-1">
+                                            <label for="id_Cnpj" class="form-label">CNPJ</label>
+                                            <input type="text" class="form-control" id="id_Cnpj" name="Cnpj" placeholder="{{empresa.Cnpj}}">
+                                        </div>
+                                        <div class="mb-3 w-100 flex-grow-1">
+                                            <label for="id_name" class="form-label">Nome</label>
+                                            <input type="text" class="form-control" id="id_name" name="name" placeholder="{{empresa.name}}">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Salvar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="modal" tabindex="-1" id="editandoCNPJ">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -72,31 +111,32 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form method="POST">
+                                    <form method="POST" action="{% url 'editEmpresa' empresa.id %}">
                                         {% csrf_token %}
-                                        {{ form.as_p }}
-                                        <div class="mb-3 w-100 flex-grow-1">
-                                            <label for="formGroupExampleInput" class="form-label">Empresa</label>
-                                            <input type="text" class="form-control" id="formGroupExampleInput id_name" placeholder="{{empresa.name}}">
-                                        </div>
-                                        <div class="mb-3 w-100 flex-grow-1">
-                                            <label for="formGroupExampleInput" class="form-label">CNPJ</label>
-                                            <input type="text" class="form-control" id="formGroupExampleInput id_Cnpj" placeholder="{{empresa.Cnpj}}">
-                                        </div>
                                         <div class="mb-3 w-25">
                                             <label for="inputState" class="form-label">Ativo</label>
-                                            <select id="inputState" class="form-select">
-                                                <option selected>Sim</option>
-                                                <option>Não</option>
+                                            <select id="inputState" class="form-select" name="ativo">
+                                                <option value="True" {% if empresa.ativo %}selected{% endif %}>Sim</option>
+                                                <option value="False" {% if not empresa.ativo %}selected{% endif %}>Não</option>
                                             </select>
                                         </div>
+                                        <div class="mb-3 w-100 flex-grow-1">
+                                            <label for="id_Cnpj" class="form-label">CNPJ</label>
+                                            <input type="text" class="form-control" id="id_Cnpj" name="Cnpj" placeholder="{{empresa.Cnpj}}">
+                                        </div>
+                                        <div class="mb-3 w-100 flex-grow-1">
+                                            <label for="id_name" class="form-label">Nome</label>
+                                            <input type="text" class="form-control" id="id_name" name="name" placeholder="{{empresa.name}}">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Salvar</button>
                                     </div>
                                 </form>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary">Salvar</button>
-                                </div>
+                            </div>
                         </div>
                     </div>
+                    
                     </li>
                 </ul>
             </div>
@@ -104,14 +144,20 @@
         
         <div class="sticky-bottom position-relative d-flex justify-content-between">
             <div class="mb-5 mt-4">
-                <a href="deletarempresa/{{empresa.id}}">
-                    <input class="btn btn-outline-danger btn-lg rounded-1" type="submit" value="Excluir"></input>
-                </a>
+                <form method="POST" action="{% url 'deleteEmpresa' empresa.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="{{ empresa.id }}">
+                    <button class="btn btn-outline-danger btn-lg rounded-1" type="submit">Excluir</button>
+                  </form>
+                  
             </div>
             <div class="mb-5 mt-4">
-                <a href="editarempresa/{{empresa.id}}">
-                    <input class="btn btn-primary btn-lg rounded-1" type="submit" value="Salvar"></input>
-                </a>
+                <form method="POST" action="{% url 'editEmpresa' empresa.id %}">
+                    {% csrf_token %}
+                    <!-- Include form fields here -->
+                    <button class="btn btn-primary btn-lg rounded-1" type="submit">Salvar</button>
+                  </form>
+                  
             </div>
         </div>
     </div>

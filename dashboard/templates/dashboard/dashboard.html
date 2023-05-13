@@ -11,7 +11,8 @@
       </a>
     </div>
 
-      <div class="card mb-3 shadow ms-auto rounded-1" style="width: 100%;">
+    <div class="d-flex flex-column w-100">
+      <div class="card mb-3 shadow ms-auto rounded-1 flex-grow-1" style="width: 100%;">
         <div class="card-body">
           <ul class="list-group list-group-flush">
             
@@ -20,7 +21,11 @@
               <p class="flex-grow-1 mb-0">
                 {{empresa.name}}
               </p>
-              <span class="badge rounded-pill text-bg-success">{{empresa.active}}</span>
+              {% if empresa.active == 'Ativo' %}
+              <span class="badge rounded-pill bg-success">{{empresa.active}}</span>
+              {% else %}
+              <span class="badge rounded-pill bg-dark">{{empresa.active}}</span>
+              {% endif %}
               <a href = "/viewempresa/{{empresa.id}}">
                 <button class="btn btn-outline-primary" type="submit">
                   <i class="bi bi-pencil-square"></i>
@@ -29,20 +34,22 @@
               </a>
             </li>
             {% endfor %}
-          
           </ul>
         </div>
-      </div>
+      </div> 
 
-      <nav aria-label="Page navigation example" class="fixed-bottom mb-3 rounded-1">
-        <ul class="pagination d-flex justify-content-center align-items-center">
+      <div class="d-flex justify-content-center align-items-center flex-shrink-0 mb-3 mt-4">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
             <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
             <li class="page-item"><a class="page-link active" href="#">1</a></li>
             <li class="page-item"><a class="page-link" href="#">2</a></li>
             <li class="page-item"><a class="page-link" href="#">3</a></li>
             <li class="page-item"><a class="page-link" href="#">Próxima</a></li>
-        </ul>
-    </nav>
-      
+          </ul>
+        </nav>
+      </div>
+    </div>
+
 </main>
 {% endblock %}

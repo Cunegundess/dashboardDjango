@@ -14,29 +14,36 @@ def viewEmpresa(request, id):
 
 def editEmpresa(request, id):
     empresa = get_object_or_404(Empresas, pk=id)
-    form = EmpresaForm(instance=empresa)
+    print(empresa)
     if request.method == "POST":
-        form = EmpresaForm(request.POST, instance=empresa) 
+        form = EmpresaForm(request.POST, instance=empresa)
         if form.is_valid():
+            empresa = form.save(commit=False)
             empresa.save()
             return redirect('/')
+        else:
+            return render(request, 'dashboard/editarempresa.html', {'form': form})
     else:
-        return render(request, 'dashboard/editarempresa.html', {'form': form, 'empresa': empresa})    
+        form = EmpresaForm(instance=empresa)
+        return render(request, 'dashboard/editarempresa.html', {'form': form, 'empresa': empresa})   
 
 def novaEmpresa(request):
     if request.method == "POST":
         form = EmpresaForm(request.POST)
-
         if form.is_valid():
             empresa = form.save(commit=False)
-            empresa.active = 'Ativo'
+            empresa.active = form.cleaned_data['active'] # add this line
             empresa.save()
             return redirect('/')
+        else:
+            # handle invalid form data here
+            return HttpResponse("Invalid form data")
     else:
         form = EmpresaForm()
         return render(request, 'dashboard/novaempresa.html', {'form': form})
+
     
-def deleteEmpresa(requst, id):
+def deleteEmpresa(request, id):
     empresa = get_object_or_404(Empresas, pk=id)
     empresa.delete()
     return redirect('/')
