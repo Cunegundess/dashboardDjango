@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+    <div class="card mt-5 shadow rounded-1 w-100 d-flex flex-row mw-100">
+        <div class="card-body d-flex flex-column gap-4">
+                <div class="mb-3 w-100 flex-grow-1">
+                    <label for="formGroupExampleInput" class="form-label">Empresa</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput id_name" placeholder="Dois Irmãos Inc.">
+                </div>
+                <div class="mb-3 w-100 flex-grow-1">
+                    <label for="formGroupExampleInput" class="form-label">CNPJ</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput id_Cnpj" placeholder="00.000.000/0000-00">
+                </div>
+                <div class="mb-3 w-25">
+                    <label for="inputState" class="form-label">Ativo</label>
+                    <select id="inputState" class="form-select">
+                        <option selected>Sim</option>
+                        <option>Não</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sticky-bottom position-relative d-flex justify-content-between">
+            <div class="mb-5 mt-4">
+                <a href="/">
+                    <button class="btn btn-danger btn-lg rounded-1" type="submit">Voltar</button>
+                </a>
+        </div>
+        <div class="mb-5 mt-4">
+            <input class="btn btn-primary btn-lg rounded-1" type="submit" value="Salvar"></input>
+        </div>
+    </div>
+</form>
+    
+</div>
+{% endblock %}

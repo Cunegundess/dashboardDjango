@@ -3,5 +3,8 @@ from . import views
 
 urlpatterns = [
     path('', views.dashboard, name = 'dashboard'),
-    path('empresa/<int:id>', views.dadosEmpresa, name='dadosEmpresa')
+    path('viewempresa/<int:id>', views.viewEmpresa, name='viewEmpresa'),
+    path('editarempresa/<int:id>', views.editEmpresa, name="editEmpresa"),
+    path('deletarempresa/<int:id>', views.deleteEmpresa, name='deleteEmpresa'),
+    path('novaempresa/', views.novaEmpresa, name='novaEmpresa'),
 ]

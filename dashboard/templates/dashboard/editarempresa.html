@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+<div class="d-flex flex-row">
+    <div class="container d-flex flex-column text-wrap w-25 m-0 ms-5 mt-5 me-5">
+        <div class="mb-5">
+            <h1 class="fs-5 fw-semibold">
+                Dados Cadastrais
+            </h1>
+            <p class="fs-6">
+                Informações cadastrais da empresa cliente.
+            </p>
+        </div>
+        <div>
+            <h1 class="fs-5 fw-semibold">
+                CNPJs
+            </h1>
+            <p class="fs-6">
+                Cadastro de CNPJs relacionados com a empresa cliente. Arquivos serão associados a um CNPJ durante o upload.
+            </p>
+        </div>
+    </div>
+
+    <div class="container d-flex flex-column mt-5 me-5">
+        <div class="card mb-5 shadow ms-auto rounded-1 w-100 d-flex flex-row">
+            <div class="card-body d-flex flex-row gap-4">
+                <div class="mb-3 w-100 flex-grow-1">
+                    <label for="formGroupExampleInput" class="form-label">Empresa</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput id_name" placeholder="{{empresa.name}}">
+                </div>
+                <div class="mb-3 w-25">
+                    <label for="inputState" class="form-label">Ativo</label>
+                    <select id="inputState" class="form-select">
+                        <option selected>Sim</option>
+                        <option>Não</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    
+        <div class="card mb-3 shadow ms-auto rounded-1 w-100">
+            <div class="card-header d-flex justify-content-end"> 
+                <button class="btn btn-primary rounded-1 me-3" type="submit">
+                    <i class="bi bi-plus"></i>
+                    Novo
+                </button>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-inline-flex align-items-center gap-5">
+                    <p class="flex-grow-1 mb-0">
+                        {{empresa.Cnpj}}
+                    </p>
+                    <p class="flex-grow-1 mb-0">
+                        {{empresa.name}}
+                    </p>
+                    <span class="badge rounded-pill text-bg-success">{{empresa.active}}</span>
+
+                    <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <i class="bi bi-pencil-square"></i>
+                    Editar
+                    </button>
+
+                    <div class="modal" tabindex="-1" id="exampleModal">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Editando CNPJ</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST">
+                                        {% csrf_token %}
+                                        {{ form.as_p }}
+                                        <div class="mb-3 w-100 flex-grow-1">
+                                            <label for="formGroupExampleInput" class="form-label">Empresa</label>
+                                            <input type="text" class="form-control" id="formGroupExampleInput id_name" placeholder="{{empresa.name}}">
+                                        </div>
+                                        <div class="mb-3 w-100 flex-grow-1">
+                                            <label for="formGroupExampleInput" class="form-label">CNPJ</label>
+                                            <input type="text" class="form-control" id="formGroupExampleInput id_Cnpj" placeholder="{{empresa.Cnpj}}">
+                                        </div>
+                                        <div class="mb-3 w-25">
+                                            <label for="inputState" class="form-label">Ativo</label>
+                                            <select id="inputState" class="form-select">
+                                                <option selected>Sim</option>
+                                                <option>Não</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary">Salvar</button>
+                                </div>
+                        </div>
+                    </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="sticky-bottom position-relative d-flex justify-content-between">
+            <div class="mb-5 mt-4">
+                <a href="deletarempresa/{{empresa.id}}">
+                    <input class="btn btn-outline-danger btn-lg rounded-1" type="submit" value="Excluir"></input>
+                </a>
+            </div>
+            <div class="mb-5 mt-4">
+                <a href="editarempresa/{{empresa.id}}">
+                    <input class="btn btn-primary btn-lg rounded-1" type="submit" value="Salvar"></input>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+
+{% endblock %}

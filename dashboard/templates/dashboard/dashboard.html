@@ -6,7 +6,9 @@
 <main class="container d-flex flex-column justify-content-center align-items-end">
   
     <div class="align-self-end mb-3">
-      <button class="btn btn-primary btn-lg rounded-1 mb-4 mt-4" type="submit">Novo</button>
+      <a href="/novaempresa/">
+        <button class="btn btn-primary btn-lg rounded-1 mb-4 mt-4" type="submit">Novo</button>
+      </a>
     </div>
 
       <div class="card mb-3 shadow ms-auto rounded-1" style="width: 100%;">
@@ -19,7 +21,7 @@
                 {{empresa.name}}
               </p>
               <span class="badge rounded-pill text-bg-success">{{empresa.active}}</span>
-              <a href = "/empresa/{{empresa.id}}">
+              <a href = "/viewempresa/{{empresa.id}}">
                 <button class="btn btn-outline-primary" type="submit">
                   <i class="bi bi-pencil-square"></i>
                   Editar
