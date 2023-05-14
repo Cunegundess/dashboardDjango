@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <form method="POST" id="formLogin">
+        {% csrf_token %}
+        <div class="card mt-5 mb-3 shadow rounded-1 w-100 d-flex flex-column">
+            <div class="card-header text-center fw-semibold">
+                Login
+              </div>
+            <!-- <div class="card-body d-flex flex-column gap-4">
+                <div class="mb-2 w-100 flex-grow-1">
+                    <label for="formGroupExampleInput" class="form-label">Nome*</label>
+                    <input type="text" class="form-control" name="name" id="formGroupExampleInput" placeholder="Insira o seu nome">
+                </div>
+                <div class="mb-2">
+                    <label for="id_active" class="form-label">Insira sua senha*</label>
+                    <input type="password" class="form-control" name="senha" id="senhaInput" placeholder="Insira sua senha">
+                </div>
+            </div> -->
+            <div class="card-footer text-center">     
+                <input name="next" type="hidden" value="{{ next }}"/>
+                {{ form|crispy }}
+                <button class="btn btn-primary btn-lg rounded-1 mt-4" type="submit"">Entrar</button>
+             </div>
+        </div>
+    </form>
+    
+</div>
+
+{% endblock %}

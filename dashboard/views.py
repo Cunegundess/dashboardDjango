@@ -1,11 +1,17 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
+from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 from .models import Empresas
 from .forms import EmpresaForm
 
 # Create your views here.
+@login_required
 def dashboard(request):
-    empresas = Empresas.objects.all().order_by('-created_at')
+    empresas_list = Empresas.objects.all().order_by('-created_at')
+    paginator = Paginator(empresas_list, 5)
+    page = request.GET.get('page')
+    empresas = paginator.get_page(page)
     return render(request, 'dashboard/dashboard.html', {'empresas': empresas})
 
 def viewEmpresa(request, id):

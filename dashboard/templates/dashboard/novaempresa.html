@@ -37,32 +37,5 @@
     </form>
     
 </div>
-{% block scripts %}
-<script>
-function submitForm() {
-    var form = $("#formNovaEmpresa")[0];
-    var formData = new FormData(form);
-    formData.append("csrfmiddlewaretoken", "{% csrf_token %}");
-    $.ajax({
-        url: "{% url 'novaEmpresa' %}",
-        type: "POST",
-        data: formData,
-        processData: false,
-        contentType: false,
-        beforeSend: function(xhr, settings) {
-            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
-        },
-        success: function(response) {
-            console.log(response);
-        },
-        error: function(xhr, status, error) {
-            console.log(xhr.responseText);
-            // handle error
-        }
-    });
-}
-
-</script>
-{% endblock %}
 
 {% endblock %}

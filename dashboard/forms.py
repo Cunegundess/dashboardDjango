@@ -23,11 +23,3 @@ class EmpresaForm(forms.ModelForm):
         ]
 
         active = forms.ChoiceField(choices=choices, widget=forms.Select(attrs={'class': 'form-select', 'id': 'id_active'}))
-
-    def clean_Cnpj(self):
-        cnpj = self.cleaned_data.get('Cnpj')
-        if cnpj:
-            # Remove any non-digit characters from the CNPJ string
-            cnpj = ''.join(filter(str.isdigit, cnpj))
-            self.cleaned_data['Cnpj'] = cnpj
-        return cnpj
