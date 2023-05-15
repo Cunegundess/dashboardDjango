@@ -3,7 +3,7 @@
 {% block title %} Dashboard {% endblock %}
 
 {% block content %}
-<main class="container d-flex flex-column justify-content-center align-items-end">
+<div class="container d-flex flex-column justify-content-center align-items-end">
   
     <div class="align-self-end mb-3">
       <a href="/novaempresa/">
@@ -15,7 +15,6 @@
       <div class="card mb-3 shadow ms-auto rounded-1 flex-grow-1" style="width: 100%;">
         <div class="card-body">
           <ul class="list-group list-group-flush">
-            
             {% for empresa in empresas %}
             <li class="list-group-item d-inline-flex align-items-center gap-5">
               <p class="flex-grow-1 mb-0">
@@ -41,7 +40,6 @@
       <div class="d-flex justify-content-center align-items-center flex-shrink-0 mt-4">
         <nav aria-label="Page navigation example">
           <ul class="pagination">
-            
             {% if empresas.has_previous %}
             <li class="page-item"><a class="page-link" href="?page={{ empresas.previous_page_number }}">Anterior</a></li>
             {% else %}
@@ -61,11 +59,9 @@
             {% else %}
             <li class="page-item disabled"><span class="page-link">Próxima</span></li>
             {% endif %}
-
           </ul>
         </nav>
       </div>
     </div>
-
-</main>
+  </div>
 {% endblock %}
