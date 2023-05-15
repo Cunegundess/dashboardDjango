@@ -1,0 +1,6 @@
+Django==3.2.4
+django-widget-tweaks==1.4.8
+python-decouple==3.5
+requests==2.26.0
+django-crispy-forms==1.12.0
+django-crispy-bootstrap4==0.1.0
