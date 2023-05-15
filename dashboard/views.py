@@ -14,17 +14,14 @@ def dashboard(request):
     empresas = paginator.get_page(page)
     return render(request, 'dashboard/dashboard.html', {'empresas': empresas})
 
-@login_required
 def viewEmpresa(request, id):
     empresa = get_object_or_404(Empresas, pk=id)
-    form = EmpresaForm(request.POST, instance=empresa)
-    return render(request, 'dashboard/editarempresa.html', {'empresa': empresa, 'form': form})
+    return render(request, 'dashboard/editarempresa.html', {'empresa': empresa})
 
-@login_required
 def editEmpresa(request, id):
     empresa = get_object_or_404(Empresas, pk=id)
+    form = EmpresaForm(request.POST, instance=empresa)
     if request.method == "POST":
-        form = EmpresaForm(request.POST, instance=empresa)
         if form.is_valid():
             form.save()
             return redirect('/')
@@ -32,13 +29,13 @@ def editEmpresa(request, id):
         form = EmpresaForm(instance=empresa)
     return render(request, 'dashboard/editarempresa.html', {'form': form, 'empresa': empresa})
 
-@login_required
+
 def novaEmpresa(request):
     if request.method == "POST":
         form = EmpresaForm(request.POST)
         if form.is_valid():
             empresa = form.save(commit=False)
-            empresa.active = form.cleaned_data['active']
+            empresa.active = form.cleaned_data['active'] # add this line
             empresa.save()
             return redirect('/')
         else:
@@ -48,7 +45,7 @@ def novaEmpresa(request):
         form = EmpresaForm()
         return render(request, 'dashboard/novaempresa.html', {'form': form})
 
-@login_required
+    
 def deleteEmpresa(request, id):
     empresa = get_object_or_404(Empresas, pk=id)
     empresa.delete()
