@@ -9,19 +9,16 @@
             <div class="card-header text-center fw-semibold">
                 Login
               </div>
-            <!-- <div class="card-body d-flex flex-column gap-4">
+            <div class="card-body d-flex flex-column gap-4">
                 <div class="mb-2 w-100 flex-grow-1">
-                    <label for="formGroupExampleInput" class="form-label">Nome*</label>
-                    <input type="text" class="form-control" name="name" id="formGroupExampleInput" placeholder="Insira o seu nome">
+                    {{ form.username|as_crispy_field }}
                 </div>
                 <div class="mb-2">
-                    <label for="id_active" class="form-label">Insira sua senha*</label>
-                    <input type="password" class="form-control" name="senha" id="senhaInput" placeholder="Insira sua senha">
+                    {{ form.password|as_crispy_field }}
                 </div>
-            </div> -->
+            </div>
             <div class="card-footer text-center">     
                 <input name="next" type="hidden" value="{{ next }}"/>
-                {{ form|crispy }}
                 <button class="btn btn-primary btn-lg rounded-1 mt-4" type="submit"">Entrar</button>
              </div>
         </div>

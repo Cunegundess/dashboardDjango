@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <div class="d-flex flex-row">
@@ -22,19 +23,21 @@
     </div>
     
     <div class="container d-flex flex-column mt-5 me-5">
-        <form method="POST" action="{% url 'editEmpresa' empresa.id %}" id="edit-empresa-form">
+        <form method="POST" action="{% url 'editEmpresa' empresa.id %}" id="edit-empresa-form"">
             {% csrf_token %}
         <div class="card mb-5 shadow ms-auto rounded-1 w-100 d-flex flex-row">
             <div class="card-body d-flex flex-row gap-4">
                 <div class="mb-3 w-100 flex-grow-1">
+                    
                     <label for="formGroupExampleInput" class="form-label">Empresa</label>
                     <input name="name" type="text" class="form-control" id="formGroupExampleInput" placeholder="{{empresa.name}}">
                 </div>
                 <div class="mb-3 w-25">
+                   
                     <label for="inputState" class="form-label">Ativo</label>
                     <select name="active" id="inputState" class="form-select">
-                        <option selected>Sim</option>
-                        <option>Não</option>
+                        <option selected>Ativo</option>
+                        <option>Inativo</option>
                     </select>
                 </div>
             </div>
@@ -74,22 +77,22 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    
                                     <form method="POST" action="{% url 'editEmpresa' empresa.id %}" onsubmit="addCNPJ(); return false;">
-                                    
                                         {% csrf_token %}
                                         <div class="mb-3 w-25">
                                             <label for="inputState" class="form-label">Ativo</label>
                                             <select id="inputState" class="form-select" name="active">
-                                                <option value="True" {% if empresa.ativo %}selected{% endif %} name="Ativo">Sim</option>
-                                                <option value="False" {% if not empresa.ativo %}selected{% endif %} name="Inativo">Não</option>
+                                                <option value="True" {% if empresa.active %}selected{% endif %} name="Ativo">Ativo</option>
+                                                <option value="False" {% if not empresa.active %}selected{% endif %} name="Inativo">Inativo</option>
                                             </select>
                                         </div>
                                         <div class="mb-3 w-100 flex-grow-1">
+                                            
                                             <label for="id_Cnpj" class="form-label">CNPJ</label>
                                             <input type="text" class="form-control" id="cnpjInput" name="Cnpj" placeholder="{{empresa.Cnpj}}">
                                         </div>
                                         <div class="mb-3 w-100 flex-grow-1">
+                                            
                                             <label for="id_name" class="form-label">Nome</label>
                                             <input type="text" class="form-control" id="id_name" name="name" placeholder="{{empresa.name}}">
                                         </div>
@@ -111,13 +114,12 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form method="POST" action="{% url 'editEmpresa' empresa.id %}" onsubmit="updateCNPJ(); return false;">
                                         {% csrf_token %}
                                         <div class="mb-3 w-25">
                                             <label for="inputState" class="form-label">Ativo</label>
                                             <select id="inputState" class="form-select" name="active">
-                                                <option value="True" {% if empresa.ativo %}selected{% endif %} name="Ativo">Sim</option>
-                                                <option value="False" {% if not empresa.ativo %}selected{% endif %} name="Inativo">Não</option>
+                                                <option {% if empresa.active %}selected{% endif %} name="Ativo">Ativo</option>
+                                                <option {% if not empresa.active %}selected{% endif %} name="Inativo">Inativo</option>
                                             </select>
                                         </div>
                                         <div class="mb-3 w-100 flex-grow-1">
@@ -132,7 +134,6 @@
                                     <div class="modal-footer">
                                         <button type="submit" class="btn btn-primary">Salvar</button>
                                     </div>
-                                </form>
                             </div>
                         </div>
                     </div>
@@ -149,16 +150,14 @@
                     {% csrf_token %}
                     <input type="hidden" name="id" value="{{ empresa.id }}">
                     <button class="btn btn-outline-danger btn-lg rounded-1" type="submit">Excluir</button>
-                  </form>
-                  
+                  </form>  
             </div>
             <div class="mb-5 mt-4">
                 <form method="POST" action="{% url 'editEmpresa' empresa.id %}">
                     {% csrf_token %}
                     <input type="hidden" name="id" value="{{ empresa.id }}">
                     <button class="btn btn-primary btn-lg rounded-1" type="submit">Salvar</button>
-                  </form>
-                  
+                </form>  
             </div>
         </div>
     </div>
